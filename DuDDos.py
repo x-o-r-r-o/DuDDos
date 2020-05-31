@@ -73,6 +73,7 @@ def send (site, proxy):
 
 def main ():
 	print ('''
+Разработка: @nkitas, @FSystem88
 Наш телеграмчик: @Termuxtop
 ·▄▄▄▄  ▄• ▄▌·▄▄▄▄  ·▄▄▄▄        .▄▄ · 
 ██▪ ██ █▪██▌██▪ ██ ██▪ ██ ▪     ▐█ ▀. 
