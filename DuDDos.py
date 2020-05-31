@@ -69,6 +69,7 @@ def send (site, proxy):
 				requests.get (site, headers = headers, proxies = prox)
 				print (Fore.GREEN + 'Запрос на ' + site + ' Выполнен')
 		except:
+                        print (Fore.RED + 'Запрос на ' + site + ' Не Выполнен')
 			continue
 
 def main ():
